@@ -1,5 +1,4 @@
 <script type="text/javascript">
-  <% @date_1 = Time.now %>
   var date = new Date();
   $(document).on('ready', function () {
     Date.prototype.getMonthName = function () {
@@ -17,20 +16,37 @@
             "Noviembre",
             "Deciembre"
         ];
-        return monthNames[this.getMonth()];
+        return monthNames[this.getMonth() - 1];
     }
-    document.getElementById("month").innerHTML = date.getMonthName();
+    document.getElementById("month").innerHTML = date.getMonthName()+ " - " +date.getMonth();
   });
   function prev() {
 
     date.setMonth(date.getMonth() - 1);
-    document.getElementById("month").innerHTML = date.getMonthName();
+    document.getElementById("month").innerHTML = date.getMonthName() + " - " +date.getMonth();
   }
   function next() {
 
     date.setMonth(date.getMonth() + 1);
-    document.getElementById("month").innerHTML = date.getMonthName();
+    document.getElementById("month").innerHTML = date.getMonthName()+ " - " +date.getMonth();
+    myFunction();
   }
+  function myFunction() {
+    var getDaysInMonth = function(year, month){
+      return new Date(year, month, 0).getDate();
+    }
+    var table = document.getElementById("myTable");
+    for (var i = 0; i < getDaysInMonth(date.getYear(), date.getMonth()); i++) {
+      var row = table.insertRow(1);
+      var cell1 = row.insertCell(0);
+      var cell2 = row.insertCell(1);
+      var cell1 = row.insertCell(2);
+      var cell2 = row.insertCell(3);
+      var cell1 = row.insertCell(4);
+      var cell1 = row.insertCell(5);
+    }
+}
+
 </script>
 
 <nav>
@@ -43,43 +59,22 @@
 
 </nav>
 <div class="col-md-12">
-    <table class="col-md-12 table table-bordered">
-        <tbody>
-            <tr class="cabins">
-                <td>
-                    Dias</td>
-                <td>
-                    cabaña 1</td>
-                <td>
-                    cabaña 2</td>
-                <td>
-                    cabaña 3</td>
-                <td>
-                    cabaña 4</td>
-                <td>
-                    cabaña 5</td>
-            </tr>
+    <table class="col-md-12 table table-bordered" id="myTable">
 
-            <% days = Time.days_in_month(@date_1.month, @date_1.year)%>
-            <% for d in 1..days do%>
-            <%date_2 = Time.new(@date_1.year, @date_1.month, d)%>
-            <tr class="vacant_state">
-                <td class="day">
-                    <%= "#{date_2.strftime("%A")} - #{date_2.day}"%></td>
-                <td>
-                    cabaña 1</td>
-                <td>
-                    cabaña 2</td>
-                <td>
-                    cabaña 3</td>
-                <td>
-                    cabaña 4</td>
-                <td>
-                    cabaña 5</td>
-            </tr>
-            <%end%>
-
-        </tbody>
+      <tr class="cabins">
+          <td>
+              Dias</td>
+          <td>
+              cabaña 1</td>
+          <td>
+              cabaña 2</td>
+          <td>
+              cabaña 3</td>
+          <td>
+              cabaña 4</td>
+          <td>
+              cabaña 5</td>
+      </tr>
 
     </table>
 </div>
