@@ -1,53 +1,45 @@
 <script type="text/javascript">
-  var date = new Date();
+<% @date= Time.now%>
   $(document).on('ready', function () {
-    Date.prototype.getMonthName = function () {
-        var monthNames = [
-            "Enero",
-            "Febrero",
-            "Marzo",
-            "Abril",
-            "Mayo",
-            "Junio",
-            "Julio",
-            "Augosto",
-            "Septiembre",
-            "Octubre",
-            "Noviembre",
-            "Deciembre"
-        ];
-        return monthNames[this.getMonth() - 1];
-    }
-    document.getElementById("month").innerHTML = date.getMonthName()+ " - " +date.getMonth();
+    document.getElementById("month").innerHTML =
+    "<%="#{@date.strftime("%B")} - #{@date.month} - #{@date.year}"%>"
+    myFunction2();
   });
+
   function prev() {
-
-    date.setMonth(date.getMonth() - 1);
-    document.getElementById("month").innerHTML = date.getMonthName() + " - " +date.getMonth();
+    console.log("<%="#{@date.month}"%>");
+    <% @date = @date.months_since(-1)%>;
+    document.getElementById("month").innerHTML =
+    "<%="#{@date.strftime("%B")} - #{@date.month} - #{@date.year}"%>";
+    console.log("<%="#{@date}"%>");
   }
+
   function next() {
+    console.log("<%="#{@date.month}"%>");
+    <% @date = @date.months_since(+1)%>;
+    document.getElementById("month").innerHTML =
+    "<%="#{@date.strftime("%B")} - #{@date.month} - #{@date.year}"%>";
 
-    date.setMonth(date.getMonth() + 1);
-    document.getElementById("month").innerHTML = date.getMonthName()+ " - " +date.getMonth();
-    myFunction();
+    console.log("<%="#{@date.month}"%>");
   }
-  function myFunction() {
-    var getDaysInMonth = function(year, month){
-      return new Date(year, month, 0).getDate();
-    }
+
+  function myFunction2(){
     var table = document.getElementById("myTable");
-    for (var i = 0; i < getDaysInMonth(date.getYear(), date.getMonth()); i++) {
+    <% days = Time.days_in_month(@date.month, @date.year)%>
+    <% for d in 0..(days-1) do %>
       var row = table.insertRow(1);
       var cell1 = row.insertCell(0);
       var cell2 = row.insertCell(1);
-      var cell1 = row.insertCell(2);
-      var cell2 = row.insertCell(3);
-      var cell1 = row.insertCell(4);
-      var cell1 = row.insertCell(5);
-    }
-}
+      var cell3 = row.insertCell(2);
+      var cell4 = row.insertCell(3);
+      var cell5 = row.insertCell(4);
+      var cell6 = row.insertCell(5);
+      cell1.innerHTML  = "<%="#{days - d} - #{@date.wday}"%>";
+    <% end %>
+  }
 
 </script>
+
 
 <nav>
     <div class="btn-group col-md-5"></div>
