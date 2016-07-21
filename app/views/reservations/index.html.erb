@@ -1,5 +1,6 @@
 <script type="text/javascript">
-  var d = new Date();
+  <% @date_1 = Time.now %>
+  var date = new Date();
   $(document).on('ready', function () {
     Date.prototype.getMonthName = function () {
         var monthNames = [
@@ -18,29 +19,26 @@
         ];
         return monthNames[this.getMonth()];
     }
-    document.getElementById("month").innerHTML = d.getMonthName();
+    document.getElementById("month").innerHTML = date.getMonthName();
   });
   function prev() {
 
-    d.setMonth(d.getMonth() - 1);
-    document.getElementById("month").innerHTML = d.getMonthName();
+    date.setMonth(date.getMonth() - 1);
+    document.getElementById("month").innerHTML = date.getMonthName();
   }
   function next() {
 
-    d.setMonth(d.getMonth() + 1);
-    document.getElementById("month").innerHTML = d.getMonthName();
+    date.setMonth(date.getMonth() + 1);
+    document.getElementById("month").innerHTML = date.getMonthName();
   }
 </script>
 
 <nav>
-
-    <% Time.zone = 'Buenos Aires'
-    date = Time.zone.now
-    %>
-    <div class="col-md-4">
-        <button onclick="prev()"> Prev </button>
-          <span id="month"></span>
-        <button onclick="next()"> Next </button>
+    <div class="btn-group col-md-5"></div>
+    <div class="btn-group col-md-6">
+        <button type="button" class="btn btn-default" onclick="prev()"> << Prev </button>
+        <button type="button" class="btn btn-success" id="month"></button>
+        <button type="button" class="btn btn-default" onclick="next()"> Next >> </button>
     </div>
 
 </nav>
@@ -62,9 +60,9 @@
                     cabaña 5</td>
             </tr>
 
-            <% days = Time.days_in_month(date.month, date.year)%>
+            <% days = Time.days_in_month(@date_1.month, @date_1.year)%>
             <% for d in 1..days do%>
-            <%date_2 = Time.new(date.year, date.month, d)%>
+            <%date_2 = Time.new(@date_1.year, @date_1.month, d)%>
             <tr class="vacant_state">
                 <td class="day">
                     <%= "#{date_2.strftime("%A")} - #{date_2.day}"%></td>
