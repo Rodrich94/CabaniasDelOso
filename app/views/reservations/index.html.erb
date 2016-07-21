@@ -1,99 +1,53 @@
-
-<style>
-#div1 {width:350px;height:70px;padding:10px;border:1px solid #aaaaaa;}
-table th, table td {
-    width: 200px;
-    height:70px;
-    padding: 5px;
-    background-color: #cccccc;
-}
-
-#drag1 {
-  width: 200px;
-  height:70px;
-  background-color: #636b17;
-  resize: horizontal;
-  overflow: auto;
-}
-
-</style>
-<script>
-function allowDrop(ev) {
-    ev.preventDefault();
-}
-
-function drag(ev) {
-    ev.dataTransfer.setData("text", ev.target.id);
-}
-
-function drop(ev) {
-    ev.preventDefault();
-    var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
-}
-
+<script type="text/javascript">
+  $(document).on('ready page:load', function(){
+      function prev_month{
+        <% @date = @date + 1.month %>;
+      }
+      function next_month(date){
+        date = date_1 + 1.month;
+      }
+  }
 
 </script>
-</head>
 
-<h1>Listing reservations</h1>
+<nav>
 
-<table>
-  <thead>
-    <tr>
-      <th>From</th>
-      <th>To</th>
-      <th>Pax</th>
-      <th>Client</th>
-      <th>Cabin</th>
-      <th>State</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <% Time.zone = 'Buenos Aires'
+  @date = Time.zone.now
+  %>
+  <div class="col-md-4">
+    <button type="button" name="button" onclick="prev_month"> Anterior </button>
+    <%= Date::MONTHNAMES[date.month] %> - <%= @date %>
+    <button type="button" name="button" onclick="next_month(date)"> Siguiente </button>
+  </div>
 
-  <tbody>
-    <% @reservations.each do |reservation| %>
-      <tr>
-        <td><%= reservation.from %></td>
-        <td><%= reservation.to %></td>
-        <td><%= reservation.pax %></td>
-        <td><%= reservation.client %></td>
-        <td><%= reservation.cabin %></td>
-        <td><%= reservation.state %></td>
-        <td><%= link_to 'Show', reservation %></td>
-        <td><%= link_to 'Edit', edit_reservation_path(reservation) %></td>
-        <td><%= link_to 'Destroy', reservation, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+</nav>
+<div class="col-md-12">
+    <table class="col-md-12 table table-bordered">
+      <tbody>
+        <tr class="cabins">
+          <td> Dias</td>
+          <td> cabaña 1</td>
+          <td> cabaña 2</td>
+          <td> cabaña 3</td>
+          <td> cabaña 4</td>
+          <td> cabaña 5</td>
+        </tr>
 
-<br>
+        <% days = Time.days_in_month(date.month, date.year)%>
+        <% for d in 1..days do%>
+          <%date_2 = Time.new(date.year, date.month, d)%>
+        <tr class="vacant_state">
+          <td class="day"> <%= "#{date_2.strftime("%A")} - #{date_2.day}"%></td>
+          <td> cabaña 1</td>
+          <td> cabaña 2</td>
+          <td> cabaña 3</td>
+          <td> cabaña 4</td>
+          <td> cabaña 5</td>
+        </tr>
+        <%end%>
 
-<%= link_to 'New Reservation', new_reservation_path %>
+      </tbody>
 
-<table>
-  <tbody>
-
-    <tr id="1_1" >
-      <td id="1_1" ondrop="drop(event)" ondragover="allowDrop(event)" > 1 </td>
-      <td id="2_2" ondrop="drop(event)" ondragover="allowDrop(event)" > 2 </td>
-      <td id="3_3" ondrop="drop(event)" ondragover="allowDrop(event)" > 3 </td>
-      <td id="4_4" ondrop="drop(event)" ondragover="allowDrop(event)" > 4 </td>
-      <td id="5_5" ondrop="drop(event)" ondragover="allowDrop(event)" >  5 </td>
-    </tr>
-    <tr id="2_2" >
-      <td id="6_6" ondrop="drop(event)" ondragover="allowDrop(event)" > 6 </td>
-      <td id="7_7" ondrop="drop(event)" ondragover="allowDrop(event)" > 7 </td>
-      <td id="8_8" ondrop="drop(event)" ondragover="allowDrop(event)" >  8 </td>
-      <td id="9_9" ondrop="drop(event)" ondragover="allowDrop(event)" >  9 </td>
-      <td id="10_10" ondrop="drop(event)" ondragover="allowDrop(event)" > 10 </td>
-    </tr>
-  </tbody>
-</table>
-
-
-<br>
-<div id="drag1"  draggable="true" ondragstart="drag(event)">aa
+    </table>
 </div>
-</body>

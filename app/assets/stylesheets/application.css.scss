@@ -13,3 +13,17 @@
  *= require_tree .
  *= require_self
  */
+ table td {
+   text-align: center;
+   height:30px;
+   padding: 5px;
+ }
+ .cabins td{
+   background-color: #009688;
+ }
+ .vacant_state{
+   background-color: #4caf50;
+ }
+ tr .day {
+   background-color: #9e9e9e;
+ }

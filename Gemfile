@@ -1,7 +1,14 @@
 source 'https://rubygems.org'
-
+gem 'bootstrap-sass', '3.3.5'
 gem 'rails', '4.1.4'
+#For roles
+gem 'rolify', '~> 5.1'
 
+#For admin side
+gem 'rails_admin', '~> 0.8.1'
+
+#For users
+gem 'devise', '~> 3.5.6'
 ### OpenShift Online changes:
 
 # Fix the conflict with the system 'rake':
@@ -17,14 +24,19 @@ gem 'rake', '~> 0.9.6'
 # $ rhc env set BUNDLE_WITHOUT="development test postgresql"
 #
 group :development, :test do
-  gem 'mysql2', '0.3.18'
+  gem 'mysql2', '~> 0.3.18'
+  gem 'rails_real_favicon'
+  gem 'better_errors' #Gem for better error page
+  gem 'binding_of_caller'
+  gem 'quiet_assets' #Gem for hide assets log
   gem 'minitest'
   gem 'thor'
+  gem 'rails_layout'
 end
 
 # Add support for the MySQL
 group :production, :mysql do
-  gem 'mysql2', '0.3.18'
+  gem 'mysql2', '~> 0.3.18'
 end
 
 
