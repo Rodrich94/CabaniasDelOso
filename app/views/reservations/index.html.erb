@@ -1,51 +1,87 @@
 <script type="text/javascript">
-  $(document).on('ready page:load', function(){
-      function prev_month{
-        <% @date = @date + 1.month %>;
-      }
-      function next_month(date){
-        date = date_1 + 1.month;
-      }
-  }
+  var d = new Date();
+  $(document).on('ready', function () {
+    Date.prototype.getMonthName = function () {
+        var monthNames = [
+            "Enero",
+            "Febrero",
+            "Marzo",
+            "Abril",
+            "Mayo",
+            "Junio",
+            "Julio",
+            "Augosto",
+            "Septiembre",
+            "Octubre",
+            "Noviembre",
+            "Deciembre"
+        ];
+        return monthNames[this.getMonth()];
+    }
+    document.getElementById("month").innerHTML = d.getMonthName();
+  });
+  function prev() {
 
+    d.setMonth(d.getMonth() - 1);
+    document.getElementById("month").innerHTML = d.getMonthName();
+  }
+  function next() {
+
+    d.setMonth(d.getMonth() + 1);
+    document.getElementById("month").innerHTML = d.getMonthName();
+  }
 </script>
 
 <nav>
 
-  <% %>
-  <div class="col-md-4">
-    <button type="button" name="button" onclick="prev_month"> Anterior </button>
-    <%= Date::MONTHNAMES[date.month] %> - <%= @date %>
-    <button type="button" name="button" onclick="next_month(date)"> Siguiente </button>
-  </div>
+    <% Time.zone = 'Buenos Aires'
+    date = Time.zone.now
+    %>
+    <div class="col-md-4">
+        <button onclick="prev()"> Prev </button>
+          <span id="month"></span>
+        <button onclick="next()"> Next </button>
+    </div>
 
 </nav>
 <div class="col-md-12">
     <table class="col-md-12 table table-bordered">
-      <tbody>
-        <tr class="cabins">
-          <td> Dias</td>
-          <td> cabaña 1</td>
-          <td> cabaña 2</td>
-          <td> cabaña 3</td>
-          <td> cabaña 4</td>
-          <td> cabaña 5</td>
-        </tr>
+        <tbody>
+            <tr class="cabins">
+                <td>
+                    Dias</td>
+                <td>
+                    cabaña 1</td>
+                <td>
+                    cabaña 2</td>
+                <td>
+                    cabaña 3</td>
+                <td>
+                    cabaña 4</td>
+                <td>
+                    cabaña 5</td>
+            </tr>
 
-        <% days = Time.days_in_month(date.month, date.year)%>
-        <% for d in 1..days do%>
-          <%date_2 = Time.new(date.year, date.month, d)%>
-        <tr class="vacant_state">
-          <td class="day"> <%= "#{date_2.strftime("%A")} - #{date_2.day}"%></td>
-          <td> cabaña 1</td>
-          <td> cabaña 2</td>
-          <td> cabaña 3</td>
-          <td> cabaña 4</td>
-          <td> cabaña 5</td>
-        </tr>
-        <%end%>
+            <% days = Time.days_in_month(date.month, date.year)%>
+            <% for d in 1..days do%>
+            <%date_2 = Time.new(date.year, date.month, d)%>
+            <tr class="vacant_state">
+                <td class="day">
+                    <%= "#{date_2.strftime("%A")} - #{date_2.day}"%></td>
+                <td>
+                    cabaña 1</td>
+                <td>
+                    cabaña 2</td>
+                <td>
+                    cabaña 3</td>
+                <td>
+                    cabaña 4</td>
+                <td>
+                    cabaña 5</td>
+            </tr>
+            <%end%>
 
-      </tbody>
+        </tbody>
 
     </table>
 </div>
