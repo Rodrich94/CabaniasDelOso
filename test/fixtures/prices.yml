@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  price: 
+  precision: 
+  scale: 
+  from: 2016-07-22
+  to: 2016-07-22
+  cabin_id: 
+
+two:
+  price: 
+  precision: 
+  scale: 
+  from: 2016-07-22
+  to: 2016-07-22
+  cabin_id: 

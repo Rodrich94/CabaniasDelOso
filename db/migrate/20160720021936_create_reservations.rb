@@ -6,7 +6,7 @@ class CreateReservations < ActiveRecord::Migration
       t.integer :pax
       t.references :client, index: true
       t.references :cabin, index: true
-      t.references :state, index: true
+      t.references :reservation_state, index: true
 
       t.timestamps
     end

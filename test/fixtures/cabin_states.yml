@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  state: MyString
+  cabin_state_range_id: 
+  color_id: 
+
+two:
+  state: MyString
+  cabin_state_range_id: 
+  color_id: 
